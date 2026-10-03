@@ -1,83 +1,42 @@
 <!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07101b">
-  <meta name="description" content="제재, 관리 기록, 역할, 티켓과 입퇴장 관리를 Discord 안에서 해결하는 서버 관리 봇 Volibot">
-  <meta property="og:title" content="Volibot — Discord 서버 관리를 더 분명하게">
-  <meta property="og:description" content="관리 작업은 빠르게, 기록은 분명하게. 서버 운영에 필요한 흐름을 Volibot 하나로 관리하세요.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://volibot.is-a.bot/">
-  <link rel="canonical" href="https://volibot.is-a.bot/">
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <title>Volibot — Discord 서버 관리를 더 분명하게</title>
-  <link rel="stylesheet" href="./style.css?v=20260915-2">
-</head>
-<body>
-  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <header class="topbar shell">
-    <a class="brand" href="#top" aria-label="Volibot 홈"><span class="brand-icon profile-icon"><img src="./assets/volibot-avatar.png?v=83a66d88a6a2" alt="Volibot Discord 프로필"></span><span>Volibot</span></a>
-    <nav class="nav" aria-label="주요 메뉴"><a href="#features">기능</a><a href="#workflow">사용 방법</a><a href="#commands">명령어</a></nav>
-    <a class="nav-cta" href="./invite/">서버에 추가하기</a>
-  </header>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020">
+<meta name="description" content="볼리봇으로 Discord 서버 관리, 자동 음성방, 역할과 티켓을 운영하세요. 새롭게 추가된 LoL 조회 기능도 만나보세요.">
+<meta property="og:title" content="Volibot · 볼리봇 공식 사이트"><meta property="og:description" content="관리 작업은 빠르게. 기록은 분명하게. Discord 서버 관리, 볼리봇과 함께."><meta property="og:type" content="website">
+<title>Volibot · 볼리봇 공식 사이트</title><link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css?v=20261004-splash">
+</head><body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="header wrap"><a class="brand" href="./"><img src="./assets/volibot-avatar.png" width="36" height="36" alt=""><strong>Volibot<span>볼리봇</span></strong></a><nav aria-label="주요 메뉴"><a href="#features">기능</a><a href="#commands">명령어</a><a href="#start">시작하기</a></nav><a class="button compact" href="https://volibot.is-a.bot/invite/">서버에 추가하기</a></header>
+<main id="main">
+<section class="hero"><img class="hero-art" src="./assets/volibear-splash.png" width="1215" height="717" alt="폭풍과 번개 속의 볼리베어" fetchpriority="high"><div class="hero-shade" aria-hidden="true"></div><div class="hero-content wrap"><p class="eyebrow">DISCORD SERVER BOT</p><h1>Volibot</h1><h2>서버 관리는 볼리봇.</h2><p class="lead">자동 음성방, 관리 기록, 역할과 티켓.<br>서버에 필요한 기능을 한곳에서.</p><div class="actions"><a class="button" href="https://volibot.is-a.bot/invite/">서버에 추가하기</a><a class="button secondary" href="#features">기능 살펴보기</a></div></div></section>
 
-  <main id="main">
-    <section id="top" class="hero shell">
-      <svg class="hero-paths" viewBox="0 0 1200 700" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-        <path class="bolt-fill" d="M865 -40 635 300h145l-92 290 310-410H842L965-40Z"/>
-        <path class="bolt-line" d="M175 40 92 202h78L108 352"/>
-        <path class="bolt-line small" d="M1110 350 1048 472h58l-46 112"/>
-      </svg>
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> DISCORD SERVER MANAGEMENT</p>
-        <h1>Volibot</h1>
-        <p class="hero-statement">관리 작업은 빠르게.<br>기록은 분명하게.</p>
-        <p class="hero-accent">제재부터 기록, 자동 음성방, 티켓까지.</p>
-        <p class="lead"><span>경고와 타임아웃, 자동 음성방, 관리 기록, 역할과 티켓까지.</span><span>관리자는 바로 실행하고 반복되는 운영 작업은 Volibot이 처리합니다.</span></p>
-        <div class="actions"><a class="button primary" href="./invite/">Discord에 Volibot 추가 <span aria-hidden="true">→</span></a><a class="button ghost" href="#workflow">사용 화면 보기</a></div>
-        <p class="microcopy">초대 화면에서 요청 권한을 확인한 뒤 추가할 수 있습니다.</p>
-      </div>
-      <aside class="discord-window" aria-label="Volibot 관리자 기록 사용 예시">
-        <div class="window-bar"><div class="bot-avatar"><img src="./assets/volibot-avatar.png?v=83a66d88a6a2" alt="Volibot Discord 프로필"></div><div><strong>Volibot</strong><span>APP</span></div><span class="online"><i></i> ONLINE</span></div>
-        <div class="command-line"><span>/기록</span> 종류: 제재</div>
-        <div class="reply-card">
-          <p class="reply-label">VOLIBOT · ADMIN LOG</p><strong>서버 관리 기록</strong><p>누가, 누구에게, 어떤 관리 작업을 실행했는지 확인합니다.</p>
-          <div class="track active"><span>01</span><div><b>타임아웃 · 10분</b><small>Moderator → User</small></div><em>방금</em></div>
-          <div class="track"><span>02</span><div><b>역할 추가</b><small>Admin → @Verified</small></div><em>2분</em></div>
-          <div class="track"><span>03</span><div><b>메시지 24개 정리</b><small>Moderator · #general</small></div><em>8분</em></div>
-        </div>
-      </aside>
-    </section>
-
-    <section class="proof-strip" aria-label="Volibot 특징"><div class="shell proof-grid"><div><strong>빠르게</strong><span>제재 · 역할 · 메시지 정리</span></div><div><strong>자동으로</strong><span>입장 시 방 생성 · 빈 방 정리</span></div><div><strong>분명하게</strong><span>관리자와 대상별 이력 조회</span></div></div></section>
-
-    <section id="features" class="section shell">
-      <div class="section-head split-head"><div><p class="eyebrow">주요 기능</p><h2>서버 관리에 필요한 기능</h2></div><p>관리 작업은 빠르게 실행하고, 변경 이력은 필요한 조건으로 다시 확인할 수 있습니다.</p></div>
-      <div class="feature-grid">
-        <article class="feature-card featured"><span class="feature-tag">01 · MODERATION</span><h3>제재 및 관리 기록</h3><p>경고, 타임아웃, 추방, 차단과 메시지 정리를 실행하고 관리자·대상·종류별 기록을 조회합니다.</p><div class="chips"><code>/경고</code><code>/타임아웃</code><code>/청소</code><code>/기록</code></div></article>
-        <article class="feature-card voice-card"><span class="feature-tag">02 · VOICE ROOMS</span><h3>자동 음성방</h3><p><span>생성 채널에 입장하면 개인 음성방을 만들고,</span><span>방장은 이름과 인원 제한을 바로 변경할 수 있습니다.</span><span>빈 방은 설정에 따라 삭제하거나 보관합니다.</span></p><div class="voice-preview"><i></i><span>음성 수다방 03</span><small>3 / 8명</small></div><div class="chips"><code>/방</code><code>/방삭제</code></div></article>
-        <article class="feature-card"><span class="feature-tag">03 · ROLES</span><h3>역할 관리</h3><p><span>관리자가 역할을 직접 변경하거나</span><span>멤버가 선택할 수 있는 역할 패널을 구성합니다.</span></p><div class="log-preview"><span>역할 패널 생성</span><time>선택 메뉴</time><span>@Verified 역할 추가</span><time>완료</time></div></article>
-        <article class="feature-card"><span class="feature-tag">04 · TICKETS</span><h3>티켓 관리</h3><p>담당 역할이 확인할 수 있는 비공개 티켓을 만들고 처리 과정을 관리합니다.</p><div class="ticket-preview"><b>#0142</b><span>가입 문의</span><em>처리 중</em></div></article>
-        <article class="feature-card"><span class="feature-tag">05 · MEMBERS</span><h3>입장·퇴장 설정</h3><p><span>입퇴장 안내 채널, 신규 계정 표시 기준과</span><span>기본 역할을 서버에 맞게 설정합니다.</span></p><div class="voice-preview"><i></i><span>새 멤버가 입장했습니다</span><small>@Member</small></div></article>
-      </div>
-    </section>
-
-    <section id="workflow" class="section workflow-section"><div class="shell workflow-layout">
-      <div class="workflow-copy"><p class="eyebrow">사용 방법</p><h2>설치는 한 번.<br>사용은 Discord에서.</h2><p><span>별도 대시보드를 오갈 필요가 없습니다.</span><span>서버에 추가하고 필요한 채널을 정한 뒤,</span><span><code>/</code>를 입력하면 시작됩니다.</span></p><ol class="steps"><li><span>01</span><div><strong>서버에 추가</strong><p>Discord 초대 화면에서 서버와 권한을 확인합니다.</p></div></li><li><span>02</span><div><strong>기능별 채널 설정</strong><p>자동 음성방 생성, 기록, 티켓에 사용할 채널을 지정합니다.</p></div></li><li><span>03</span><div><strong>슬래시 명령어 사용</strong><p>명령과 버튼 응답으로 서버 안에서 처리합니다.</p></div></li></ol></div>
-      <div class="admin-card" aria-label="관리 기록 예시"><div class="admin-card-head"><span># 관리자-기록</span><i>LIVE</i></div><div class="admin-message"><div class="bot-avatar small"><img src="./assets/volibot-avatar.png?v=83a66d88a6a2" alt="Volibot Discord 프로필"></div><div><strong>Volibot <em>APP</em></strong><time>오늘 오후 9:08</time></div></div><div class="embed"><p class="reply-label">VOLIBOT · ADMIN LOG</p><h3>역할 설정이 변경되었습니다.</h3><dl><div><dt>관리자</dt><dd>Moderator</dd></div><div><dt>대상 역할</dt><dd>@Verified</dd></div><div><dt>작업</dt><dd>자동 역할 활성화</dd></div><div><dt>채널</dt><dd>#welcome</dd></div></dl></div></div>
-    </div></section>
-
-    <section id="commands" class="section shell command-section">
-      <div class="section-head"><p class="eyebrow">명령어</p><h2>자주 쓰는 관리 명령어</h2><p>Volibot에 실제 등록된 명령 중 주요 기능입니다.</p></div>
-      <div class="command-grid"><div class="command-card"><code>/경고</code><span>사용자에게 사유와 함께 경고 부여</span><b>제재</b></div><div class="command-card"><code>/타임아웃</code><span>지정한 기간 동안 사용자 제한</span><b>제재</b></div><div class="command-card"><code>/기록</code><span>관리자·대상·종류별 이력 조회</span><b>기록</b></div><div class="command-card"><code>/방</code><span>자동 음성방 이름·인원 제한 변경</span><b>음성방</b></div><div class="command-card"><code>/청소</code><span>조건에 맞는 최근 메시지 정리</span><b>관리</b></div><div class="command-card"><code>/티켓</code><span>비공개 문의 패널 생성 및 관리</span><b>문의</b></div></div>
-    </section>
-
-    <section class="section shell"><div class="trust-card"><div><p class="eyebrow">문의 및 지원</p><h2>공식 Discord 서버에서<br>문의하세요.</h2><p>궁금한 점, 오류 제보와 기능 제안을 공식 Discord 서버에 남겨주세요.</p></div><a class="discord-support-button" href="./server/"><span>VOLIBOT SUPPORT</span><strong>공식 Discord 서버</strong><b aria-hidden="true">→</b></a></div></section>
-
-    <section class="final-cta shell"><p class="eyebrow">시작하기</p><h2>서버 관리를<br><span>Volibot으로 시작하세요.</span></h2><p>익숙한 Discord 안에서 바로 사용할 수 있습니다.</p><a class="button primary large" href="./invite/">Discord에 Volibot 추가 <span aria-hidden="true">→</span></a></section>
-  </main>
-
-  <footer class="footer shell"><div class="footer-brand"><span class="brand-icon profile-icon"><img src="./assets/volibot-avatar.png?v=83a66d88a6a2" alt="Volibot Discord 프로필"></span><div><strong>Volibot</strong><span>Discord server management, simplified.</span></div></div><div class="footer-links"><a href="./server/">공식 Discord</a><a href="./github/">GitHub</a><a href="./terms/">이용약관</a><a href="./privacy/">개인정보 처리방침</a></div><p>© 2026 Volibot</p></footer>
-</body>
-</html>
+<section class="section wrap" id="features"><div class="section-head"><p class="eyebrow">VOLIBOT FEATURES</p><h2>서버에 필요한 기능.</h2><p>반복되는 운영 작업을 줄이고, 커뮤니티에 맞는 기능을 구성하세요.</p></div><nav class="feature-nav" aria-label="기능 선택" role="tablist"><a href="#moderation" id="tab-moderation" role="tab" aria-controls="moderation">관리 기록</a><a href="#voice" id="tab-voice" role="tab" aria-controls="voice">자동 음성방</a><a href="#roles" id="tab-roles" role="tab" aria-controls="roles">역할 관리</a><a href="#community" id="tab-community" role="tab" aria-controls="community">티켓 · 모집</a><a href="#league" id="tab-league" role="tab" aria-controls="league">LoL 조회</a></nav><div class="grid">
+<article class="card feature-lead" id="moderation" role="tabpanel" aria-labelledby="tab-moderation"><span class="number">01 / SERVER MANAGEMENT</span><h3>제재와 관리 기록</h3><p>경고, 타임아웃, 추방과 차단을 실행합니다. 메시지를 정리하고 관리자·대상·종류별로 관리 이력을 조회하세요.</p><div class="chips"><code>/경고</code><code>/타임아웃</code><code>/청소</code><code>/유저 기록</code></div></article>
+<article class="card" id="voice" role="tabpanel" aria-labelledby="tab-voice"><span class="number">02 / VOICE ROOMS</span><h3>자동 음성방</h3><p>생성 채널에 입장하면 개인 음성방이 만들어집니다. 방장은 이름과 인원 제한을 바꾸고, 빈 방은 설정에 따라 삭제하거나 보관합니다.</p><div class="chips"><code>/방</code><code>/설정</code></div></article>
+<article class="card" id="roles" role="tabpanel" aria-labelledby="tab-roles"><span class="number">03 / ROLES &amp; MEMBERS</span><h3>역할과 입퇴장 안내</h3><p>역할 패널로 멤버가 역할을 선택하게 하고, 입장·퇴장 안내와 기본 역할을 서버에 맞게 설정하세요.</p><div class="chips"><code>/역할패널</code><code>/설정</code></div></article>
+<article class="card" id="community" role="tabpanel" aria-labelledby="tab-community"><span class="number">04 / TICKETS &amp; COMMUNITY</span><h3>티켓과 선착순 모집</h3><p>담당 역할이 확인하는 비공개 문의 티켓을 구성합니다. 함께할 멤버가 필요할 때는 제목과 인원을 정해 선착순 모집을 시작하세요.</p><div class="chips"><code>/티켓</code><code>/선착</code></div></article>
+<article class="card" id="league" role="tabpanel" aria-labelledby="tab-league"><span class="number">05 / LEAGUE OF LEGENDS</span><h3>LoL 계정과 전적 조회</h3><p>등록한 Riot ID의 현재 게임, 최근 전적, 챔피언 통계와 랭크를 Discord에서 확인합니다.</p><div class="chips"><code>/롤 계정 등록</code><code>/롤 전적</code></div></article>
+</div></section>
+<section class="wide-band" id="start"><div class="section wrap start-grid"><div><p class="eyebrow">시작하기</p><h2>추가하고, 설정하고,<br>바로 사용하세요.</h2><p class="lead">별도 대시보드 없이<br>익숙한 Discord에서 시작합니다.</p><a class="button secondary" href="https://volibot.is-a.bot/server/">Volibot 공식 서버에서 문의하기</a></div><div><div class="step"><b>01</b><div><strong>서버에 볼리봇 추가</strong><p>초대 화면에서 서버와 권한을 확인하세요. 현재 초대 링크는 관리자 권한을 요청합니다.</p></div></div><div class="step"><b>02</b><div><strong>서버에 맞게 설정</strong><p><code>/설정</code>으로 자동 음성방, 관리 기록, 입장·퇴장 안내 등 필요한 항목을 구성하세요.</p></div></div><div class="step"><b>03</b><div><strong>슬래시 명령어로 시작</strong><p>채팅창에 <code>/</code>를 입력하고 필요한 명령을 선택하세요. 관리 명령은 필요한 권한이 있는 멤버가 사용할 수 있습니다.</p></div></div></div></div></section>
+<section class="section wrap" id="commands"><div class="section-head"><p class="eyebrow">명령어 찾아보기</p><h2>필요한 명령어를 빠르게.</h2><p>명령어 이름이나 기능을 검색하세요. 세부 옵션은 Discord의 명령어 입력창에서 확인할 수 있습니다.</p></div><div class="command-tools"><div class="filters" role="group" aria-label="명령어 분류"><button class="filter" type="button" data-category="all" aria-pressed="true">전체</button><button class="filter" type="button" data-category="manage" aria-pressed="false">서버 관리</button><button class="filter" type="button" data-category="community" aria-pressed="false">커뮤니티</button><button class="filter" type="button" data-category="lol" aria-pressed="false">LoL</button></div><label><span class="sr-only">명령어 검색</span><input class="search" id="command-search" type="search" placeholder="명령어 또는 기능 검색" aria-controls="command-list" autocomplete="off"></label></div><p class="result-count" id="result-count" role="status" aria-live="polite"></p><div class="command-grid" id="command-list">
+<article class="command" data-category="manage"><code>/설정</code><p>서버의 기능과 운영 설정을 관리합니다.</p></article>
+<article class="command" data-category="manage"><code>/경고</code><p>사용자에게 사유와 함께 경고를 부여합니다.</p></article>
+<article class="command" data-category="manage"><code>/타임아웃</code><p>지정한 기간 동안 사용자를 제한합니다.</p></article>
+<article class="command" data-category="manage"><code>/유저 기록</code><p>관리자·대상·종류별로 관리 이력을 조회합니다.</p></article>
+<article class="command" data-category="manage"><code>/청소</code><p>조건에 맞는 최근 메시지를 정리합니다.</p></article>
+<article class="command" data-category="community"><code>/방</code><p>현재 자동 음성방의 이름과 인원 제한을 변경합니다.</p></article>
+<article class="command" data-category="community"><code>/역할패널</code><p>멤버가 역할을 선택할 수 있는 패널을 관리합니다.</p></article>
+<article class="command" data-category="community"><code>/티켓</code><p>비공개 문의 티켓과 패널을 관리합니다.</p></article>
+<article class="command" data-category="community"><code>/선착</code><p>제목과 모집 인원을 정해 선착순 모집을 시작합니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 계정 등록</code><p>Riot ID와 LoL 서버를 연결합니다. 계정 소유권 인증은 아닙니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 계정 해제</code><p>현재 Discord 서버에서 본인의 Riot 계정 연결을 삭제합니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 실시간</code><p>등록 계정의 현재 LoL 게임을 조회합니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 전적</code><p>최근 최대 20경기의 전적을 5경기씩 확인합니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 챔피언</code><p>선택한 챔피언의 모드별 최근 표본 통계를 조회합니다.</p></article>
+<article class="command" data-category="lol"><code>/롤 랭킹</code><p>등록 계정의 솔로/듀오와 자유 랭크를 확인합니다.</p></article>
+</div><p class="empty" id="no-results" hidden>일치하는 명령어가 없습니다. 다른 검색어나 분류를 선택해 주세요.</p><noscript><p class="note">JavaScript를 켜면 검색과 분류를 사용할 수 있습니다. 전체 명령어는 그대로 확인하실 수 있습니다.</p></noscript></section>
+<section class="wide-band"><div class="section wrap faq-layout"><div><p class="eyebrow">자주 묻는 질문</p><h2>시작 전에<br>궁금한 점이 있으신가요?</h2><p class="lead">해결되지 않은 문제가 있으신가요?</p><a class="button secondary" href="https://volibot.is-a.bot/server/">Volibot 공식 서버에서 문의하기</a></div><div><details><summary>서버에 추가하려면 어떤 권한이 필요한가요?</summary><p>Discord에서 앱을 추가할 수 있는 서버 권한이 필요합니다. 현재 볼리봇 초대 링크는 관리자 권한을 요청하므로 초대 화면을 확인하고, 추가 후 봇 역할과 기능별 설정을 점검해 주세요.</p></details><details><summary>자동 음성방은 어떻게 사용하나요?</summary><p>관리자가 지정한 생성 채널에 입장하면 자동 음성방이 만들어집니다. 방장 또는 관리자는 <code>/방</code>으로 이름과 인원 제한을 변경할 수 있습니다.</p></details><details><summary>LoL 기능은 어떻게 시작하나요?</summary><p>먼저 <code>/롤 계정 등록</code>에 Riot ID(이름#태그)와 LoL 서버를 입력하세요. 이후 <code>/롤 실시간</code>, <code>/롤 전적</code>, <code>/롤 랭킹</code>으로 조회할 수 있습니다.</p></details><details><summary>자동 음성방의 이름과 인원 제한은 어떻게 바꾸나요?</summary><p>현재 자동 음성방에서 <code>/방</code>을 사용하세요. 이름과 인원 중 필요한 옵션만 입력하면 됩니다. 인원을 0으로 설정하면 무제한이며, 방장 또는 관리자만 변경할 수 있습니다.</p></details><details><summary>명령어가 보이지 않거나 실행되지 않아요.</summary><p>봇이 서버에 추가되어 있는지, 사용자와 봇의 권한이 있는지 확인해 주세요. 문제가 계속되면 공식 Discord 서버에 사용한 명령과 오류 내용을 알려주세요.</p></details><details><summary>오류 제보와 데이터 삭제 요청은 어디서 하나요?</summary><p><a href="https://volibot.is-a.bot/server/">공식 Discord 서버</a>에서 문의하실 수 있습니다. 개인정보가 포함된 내용은 공개 채널에 작성하지 말고 운영자가 안내하는 방법을 이용해 주세요.</p></details></div></div></section>
+<section class="section wrap"><div class="closing"><div><h2>서버에 Volibot을 추가하세요.</h2><p>자동 음성방과 관리 기능을 서버에 맞게 설정하세요.</p></div><a class="button" href="https://volibot.is-a.bot/invite/">서버에 추가하기</a></div></section>
+</main>
+<footer class="footer wrap"><a class="brand" href="./"><img src="./assets/volibot-avatar.png" width="36" height="36" alt=""><strong>Volibot<span>볼리봇</span></strong></a><div><a href="https://volibot.is-a.bot/server/">Discord 공식 서버</a><a href="./terms/">이용약관</a><a href="./privacy/">개인정보 처리방침</a></div><span>© 2026 Volibot</span><p class="riot-notice">Volibot is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
+<script src="./site.js?v=20261004-tabs" defer></script></body></html>
