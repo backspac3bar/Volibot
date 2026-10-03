@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 import { applicationId, emojiPlan, registerEmojis } from "../scripts/register-lol-emojis.mjs";
 
 const smallPng = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3ioAAAAASUVORK5CYII=", "base64");
@@ -87,4 +88,63 @@ test("missing credentials and oversized icons never create emojis", async () => 
     } });
   assert.equal(posts, 0);
   assert.deepEqual(summary.missing, ["lol_champion_103"]);
+});
+
+test("bundled ranks are ten original small 80px emblems, not the 512px border assets", async () => {
+  const tiers = emojiPlan({ data: { Ahri: { key: "103", image: { full: "Ahri.png" } } } }, "16.19.1")
+    .filter((row) => row.name.startsWith("lol_rank_"));
+  assert.equal(tiers.length, 10);
+  for (const tier of tiers) {
+    const buffer = await readFile(new URL(tier.url));
+    assert.equal(buffer.readUInt32BE(16), 80);
+    assert.equal(buffer.readUInt32BE(20), 80);
+    assert.ok(buffer.length < 256 * 1024);
+  }
+});
+
+test("replacement preserves champion IDs, backs up borders and is resumable without deleting emojis", async () => {
+  const emojis = [{ name: "lol_champion_103", id: "111" }, { name: "lol_rank_platinum", id: "222" }];
+  let creates = 0;
+  const updates = [];
+  const combined = [...plan, { name: "lol_rank_platinum", url: plan[0].url }];
+  const fetch = async (url, options) => {
+    if (url.startsWith("https://ddragon.leagueoflegends.com/")) return new Response(smallPng);
+    if (url.endsWith("/users/@me")) return json({ id: applicationId, bot: true });
+    if (options.method === "GET") return json({ items: emojis });
+    assert.notEqual(options.method, "DELETE");
+    const body = JSON.parse(options.body);
+    if (options.method === "POST") {
+      creates++;
+      const emoji = { name: body.name, id: "333" };
+      emojis.push(emoji);
+      return json(emoji);
+    }
+    const emoji = emojis.find((emoji) => url.endsWith(`/${emoji.id}`));
+    updates.push(body.name);
+    emoji.name = body.name;
+    return json(emoji);
+  };
+  const options = { token: "fake", plan: combined, replaceTiers: true, fetch, sleep: async () => {}, log: () => {} };
+  const first = await registerEmojis(options);
+  assert.equal(first.replaced, 1);
+  assert.deepEqual(updates, ["lol_border_backup_platinum", "lol_rank_platinum"]);
+  assert.equal(emojis.find((emoji) => emoji.name === "lol_champion_103").id, "111");
+  assert.equal(emojis.find((emoji) => emoji.name === "lol_rank_platinum").id, "333");
+  const second = await registerEmojis(options);
+  assert.equal(second.reused, 2);
+  assert.equal(creates, 1);
+});
+
+test("failed emblem creation leaves the existing border name untouched and reports failure", async () => {
+  const tierPlan = [{ name: "lol_rank_platinum", url: plan[0].url }];
+  const summary = await registerEmojis({ token: "fake", plan: tierPlan, replaceTiers: true, sleep: async () => {}, log: () => {},
+    fetch: async (url, options) => {
+      if (url.startsWith("https://ddragon.leagueoflegends.com/")) return new Response(smallPng);
+      if (url.endsWith("/users/@me")) return json({ id: applicationId, bot: true });
+      if (options.method === "GET") return json({ items: [{ name: "lol_rank_platinum", id: "222" }] });
+      assert.equal(options.method, "POST");
+      return json({}, 403);
+    } });
+  assert.deepEqual(summary.failed, ["lol_rank_platinum"]);
+  assert.equal(summary.replaced, 0);
 });

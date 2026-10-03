@@ -1,17 +1,14 @@
 import { pathToFileURL } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
+import { readFile } from "node:fs/promises";
 
 export const applicationId = "1339273098234695800";
 const discordBase = "https://discord.com/api/v10";
 const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 const tierIcons = [
-  ["iron", "01_iron/01_iron_base"], ["bronze", "02_bronze/02_bronze_base"],
-  ["silver", "03_silver/03_silver_base"], ["gold", "04_gold/04_gold_base"],
-  ["platinum", "05_platinum/05_platinum_base_new"], ["emerald", "emerald/emerald_base"],
-  ["diamond", "06_diamond/06_diamond_base"], ["master", "07_master/07_master_base"],
-  ["grandmaster", "08_grandmaster/08_grandmaster_base"], ["challenger", "09_challenger/09_challenger_base"],
-].map(([tier, file]) => ({ name: `lol_rank_${tier}`,
-  url: `https://raw.communitydragon.org/latest/game/assets/loadouts/regalia/crests/ranked/${file}.png` }));
+  "iron", "bronze", "silver", "gold", "platinum", "emerald", "diamond", "master", "grandmaster", "challenger",
+].map((tier) => ({ name: `lol_rank_${tier}`,
+  url: new URL(`../assets/lol-tier-emojis/${tier}.png`, import.meta.url).href }));
 
 export function emojiPlan(champions, version, tiers = tierIcons) {
   if (!/^\d+\.\d+\.\d+$/.test(version) || !champions?.data || typeof champions.data !== "object") {
@@ -30,6 +27,11 @@ export function emojiPlan(champions, version, tiers = tierIcons) {
 }
 
 async function png(url, fetch) {
+  if (url.startsWith("file:")) {
+    const buffer = await readFile(new URL(url));
+    if (buffer.length > 256 * 1024 || !buffer.subarray(0, 8).equals(signature)) throw new Error("Invalid bundled tier PNG");
+    return `data:image/png;base64,${buffer.toString("base64")}`;
+  }
   const response = await fetch(url, { headers: {}, redirect: "error", signal: AbortSignal.timeout(10000) });
   if (!response.ok || !response.body) throw new Error(`Public icon HTTP ${response.status}`);
   const chunks = [];
@@ -44,7 +46,7 @@ async function png(url, fetch) {
   return `data:image/png;base64,${buffer.toString("base64")}`;
 }
 
-export async function registerEmojis({ token, plan, fetch = globalThis.fetch, sleep = delay, log = console.log }) {
+export async function registerEmojis({ token, plan, replaceTiers = false, fetch = globalThis.fetch, sleep = delay, log = console.log }) {
   if (!token?.trim()) throw new Error("DISCORD_BOT_TOKEN is not configured in GitHub Secrets");
   async function discord(path, method = "GET", body) {
     for (let attempt = 0; attempt < 6; attempt++) {
@@ -72,17 +74,37 @@ export async function registerEmojis({ token, plan, fetch = globalThis.fetch, sl
   const current = await discord(`/applications/${applicationId}/emojis`);
   if (!Array.isArray(current.items)) throw new Error("Invalid Discord emoji list");
   const existing = new Set(current.items.map((emoji) => emoji.name));
-  if (current.items.length + plan.filter((row) => !existing.has(row.name)).length > 2000) throw new Error("Application emoji slots would exceed 2000; no changes made");
-  const summary = { expected: plan.length, created: 0, reused: 0, failed: [] };
+  const byName = new Map(current.items.map((emoji) => [emoji.name, emoji]));
+  const replacements = replaceTiers ? plan.filter((row) => row.name.startsWith("lol_rank_") && existing.has(row.name)).length : 0;
+  if (current.items.length + replacements + plan.filter((row) => !existing.has(row.name)).length > 2000) throw new Error("Application emoji slots would exceed 2000; no changes made");
+  const summary = { expected: plan.length, created: 0, replaced: 0, reused: 0, failed: [] };
   for (const row of plan) {
-    if (existing.has(row.name)) { summary.reused++; continue; }
+    const replacement = replaceTiers && row.name.startsWith("lol_rank_");
+    const backup = row.name.replace("lol_rank_", "lol_border_backup_");
+    if (existing.has(row.name) && (!replacement || existing.has(backup))) { summary.reused++; continue; }
     try {
-      const image = await png(row.url, fetch);
-      const emoji = await discord(`/applications/${applicationId}/emojis`, "POST", { name: row.name, image });
-      if (emoji.name !== row.name || !/^\d+$/.test(emoji.id)) throw new Error("Discord did not return the expected emoji");
+      const old = byName.get(row.name);
+      const target = replacement && old ? `${row.name}_new` : row.name;
+      let emoji = replacement ? byName.get(`${row.name}_new`) : null;
+      if (!emoji) {
+        const image = await png(row.url, fetch);
+        emoji = await discord(`/applications/${applicationId}/emojis`, "POST", { name: target, image });
+        if (emoji.name !== target || !/^\d+$/.test(emoji.id)) throw new Error("Discord did not return the expected emoji");
+        summary.created++;
+      }
+      if (replacement && old) {
+        await discord(`/applications/${applicationId}/emojis/${old.id}`, "PATCH", { name: backup });
+        existing.add(backup);
+        existing.delete(row.name);
+      }
+      if (replacement && emoji.name !== row.name) {
+        emoji = await discord(`/applications/${applicationId}/emojis/${emoji.id}`, "PATCH", { name: row.name });
+        if (emoji.name !== row.name) throw new Error("Discord tier rename failed");
+        summary.replaced++;
+      }
       existing.add(row.name);
-      summary.created++;
-      log(`Created ${row.name}`);
+      byName.set(row.name, emoji);
+      log(`${replacement ? "Replaced" : "Created"} ${row.name}`);
       await sleep(250);
     } catch (error) {
       summary.failed.push(row.name);
@@ -110,8 +132,8 @@ export async function main() {
   });
   const plan = emojiPlan(champions, versions[0]);
   if (process.argv.includes("--dry-run")) { console.log(JSON.stringify({ applicationId, champions: plan.length - tierIcons.length, tiers: tierIcons.length, total: plan.length })); return; }
-  const summary = await registerEmojis({ token: process.env.DISCORD_BOT_TOKEN, plan });
-  if (summary.missing.length) process.exitCode = 1;
+  const summary = await registerEmojis({ token: process.env.DISCORD_BOT_TOKEN, plan, replaceTiers: process.argv.includes("--replace-tiers") });
+  if (summary.missing.length || summary.failed.length) process.exitCode = 1;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

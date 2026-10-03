@@ -24,4 +24,4 @@ jobs:
       - name: Validate registration script
         run: node --test test/register-lol-emojis.test.mjs
       - name: Register champions and ranked tiers on the verified Volibot application
-        run: node scripts/register-lol-emojis.mjs
+        run: node scripts/register-lol-emojis.mjs --replace-tiers
