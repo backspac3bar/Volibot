@@ -1,38 +1,27 @@
-name: Sync Discord avatar
+name: Register Volibot LoL emojis
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 0,12 * * *"
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/sync-discord-avatar.yml"
-      - "scripts/sync-discord-avatar.mjs"
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: volibot-lol-emoji-registration
+  cancel-in-progress: false
 
 jobs:
-  sync-avatar:
+  register-emojis:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
       DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: 22
-      - name: Download current Discord avatar
-        run: node scripts/sync-discord-avatar.mjs
-      - name: Commit changed avatar
-        run: |
-          if git diff --quiet -- assets/volibot-avatar.png index.html terms/index.html privacy/index.html; then
-            echo "Avatar is already current."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/volibot-avatar.png index.html terms/index.html privacy/index.html
-          git commit -m "Sync Discord avatar"
-          git push
+          node-version: 24
+      - name: Validate registration script
+        run: node --test test/register-lol-emojis.test.mjs
+      - name: Register champions and ranked tiers on the verified Volibot application
+        run: node scripts/register-lol-emojis.mjs
