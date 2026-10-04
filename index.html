@@ -19,32 +19,23 @@
 </div></section>
 <section class="wide-band" id="start"><div class="section wrap start-grid"><div><p class="eyebrow">시작하기</p><h2>추가하고, 설정하고,<br>바로 사용하세요.</h2><p class="lead">별도 대시보드 없이<br>익숙한 Discord에서 시작합니다.</p><a class="button secondary" href="https://volibot.is-a.bot/server/">Volibot 공식 서버에서 문의하기</a></div><div><div class="step"><b>01</b><div><strong>서버에 볼리봇 추가</strong><p>초대 화면에서 서버와 권한을 확인하세요. 현재 초대 링크는 관리자 권한을 요청합니다.</p></div></div><div class="step"><b>02</b><div><strong>서버에 맞게 설정</strong><p><code>/채널</code>로 자동 음성방 생성 채널과 기록 채널을 지정하고, <code>/입퇴장</code>으로 멤버 안내를 구성하세요. 설정 확인과 백업은 <code>/설정 보기</code>, <code>/설정 백업</code>을 사용합니다.</p></div></div><div class="step"><b>03</b><div><strong>슬래시 명령어로 시작</strong><p>채팅창에 <code>/</code>를 입력하고 필요한 명령을 선택하세요. 관리 명령은 필요한 권한이 있는 멤버가 사용할 수 있습니다.</p></div></div></div></div></section>
 <section class="section wrap" id="commands"><div class="section-head"><p class="eyebrow">명령어 찾아보기</p><h2>필요한 명령어를 빠르게.</h2><p>명령어 이름이나 기능을 검색하세요. 세부 옵션은 Discord의 명령어 입력창에서 확인할 수 있습니다.</p></div><div class="command-tools"><div class="filters" role="group" aria-label="명령어 분류"><button class="filter" type="button" data-category="all" aria-pressed="true">전체</button><button class="filter" type="button" data-category="manage" aria-pressed="false">서버 관리</button><button class="filter" type="button" data-category="community" aria-pressed="false">커뮤니티</button><button class="filter" type="button" data-category="lol" aria-pressed="false">LoL</button></div><label><span class="sr-only">명령어 검색</span><input class="search" id="command-search" type="search" placeholder="명령어 또는 기능 검색" aria-controls="command-list" autocomplete="off"></label></div><p class="result-count" id="result-count" role="status" aria-live="polite"></p><div class="command-grid" id="command-list">
-<article class="command" data-category="manage"><code>/설정 보기</code><p>Volibot 서버 관리 설정을 확인합니다</p></article>
-<article class="command" data-category="manage"><code>/설정 백업</code><p>현재 서버 설정을 백업합니다</p></article>
-<article class="command" data-category="manage"><code>/설정 복구</code><p>가장 최근 백업으로 설정을 복구합니다</p></article>
-<article class="command" data-category="manage"><code>/설정 초기화</code><p>현재 설정을 백업하고 초기화합니다</p></article>
-<article class="command" data-category="manage"><code>/경고</code><p>사용자에게 경고를 부여합니다</p></article>
-<article class="command" data-category="manage"><code>/경고목록</code><p>사용자의 활성 경고를 확인합니다</p></article>
-<article class="command" data-category="manage"><code>/경고취소</code><p>제재 번호로 활성 경고를 취소합니다</p></article>
-<article class="command" data-category="manage"><code>/타임아웃</code><p>사용자를 일정 시간 타임아웃합니다</p></article>
-<article class="command" data-category="manage"><code>/타임아웃해제</code><p>사용자의 타임아웃을 해제합니다</p></article>
-<article class="command" data-category="manage"><code>/킥</code><p>서버에서 사용자를 추방합니다</p></article>
-<article class="command" data-category="manage"><code>/밴</code><p>서버에서 사용자를 차단합니다</p></article>
-<article class="command" data-category="manage"><code>/밴해제</code><p>사용자 ID로 차단을 해제합니다</p></article>
+<article class="command" data-category="manage"><code>/입퇴장</code><p>입퇴장 안내, 신규 계정 표시와 기본 역할을 설정합니다.</p></article>
+<article class="command" data-category="manage"><code>/역할</code><p>사용자에게 역할을 추가하거나 제거합니다.</p></article>
+<article class="command" data-category="manage"><code>/청소</code><p>현재 채널의 최근 메시지를 조건에 맞게 삭제합니다.</p></article>
+<article class="command" data-category="manage"><code>/방삭제</code><p>빈 자동 음성방을 삭제하거나 채팅이 있는 방을 보관하도록 설정합니다.</p></article>
+<article class="command" data-category="manage"><code>/들낙붕셰</code><p>빠른 음성방 퇴장에 적용할 타임아웃을 설정합니다.</p></article>
+<article class="command" data-category="manage"><code>/경고</code><p>사용자에게 경고를 부여하고, 활성 경고 목록을 확인하거나 취소합니다.</p></article>
+<article class="command" data-category="manage"><code>/타임아웃</code><p>사용자를 일정 시간 제한하거나 타임아웃을 해제합니다.</p></article>
+<article class="command" data-category="manage"><code>/설정</code><p>서버 설정을 확인·백업·복구·초기화합니다.</p></article>
+<article class="command" data-category="manage"><code>/채널</code><p>자동 음성방 생성 채널과 각종 기록 채널을 설정하거나 해제합니다.</p></article>
+<article class="command" data-category="manage"><code>/킥</code><p>사용자를 서버에서 추방합니다.</p></article>
+<article class="command" data-category="manage"><code>/밴</code><p>사용자를 서버에서 차단하거나 사용자 ID로 차단을 해제합니다.</p></article>
+<article class="command" data-category="manage"><code>/유저</code><p>사용자 정보와 제재 상태를 확인하고 서버 관리 이력을 조회합니다.</p></article>
 <article class="command" data-category="community"><code>/방</code><p>현재 자동 음성방의 이름이나 인원 제한을 변경합니다.</p></article>
 <article class="command" data-category="community"><code>/선착</code><p>제목과 인원을 정해 선착순 모집을 시작합니다.</p></article>
 <article class="command" data-category="community"><code>/티켓</code><p>문의 티켓 패널을 생성하거나 삭제합니다.</p></article>
 <article class="command" data-category="community"><code>/역할패널</code><p>역할 선택 패널을 생성·조회·수정·삭제합니다.</p></article>
 <article class="command" data-category="community"><code>/서버정보</code><p>현재 Discord 서버의 정보를 확인합니다.</p></article>
-<article class="command" data-category="manage"><code>/유저 정보</code><p>사용자의 현재 서버 정보와 제재 상태를 확인합니다</p></article>
-<article class="command" data-category="manage"><code>/유저 기록</code><p>서버 관리 이력을 시간순으로 조회합니다</p></article>
-<article class="command" data-category="manage"><code>/청소</code><p>현재 채널의 최근 메시지를 조건에 맞게 삭제합니다</p></article>
-<article class="command" data-category="manage"><code>/역할 추가</code><p>사용자에게 역할을 추가합니다</p></article>
-<article class="command" data-category="manage"><code>/역할 제거</code><p>사용자에게서 역할을 제거합니다</p></article>
-<article class="command" data-category="manage"><code>/채널</code><p>봇이 사용할 채널을 설정하거나 해제합니다</p></article>
-<article class="command" data-category="manage"><code>/들낙붕셰</code><p>빠른 음성방 퇴장 타임아웃을 설정합니다</p></article>
-<article class="command" data-category="manage"><code>/방삭제</code><p>빈 자동 음성방의 삭제 방식을 설정합니다</p></article>
-<article class="command" data-category="manage"><code>/입퇴장</code><p>입퇴장 안내와 신규 멤버 기본 역할을 설정합니다</p></article>
 <article class="command" data-category="lol"><code>/롤 통계</code><p>연결된 계정의 레벨·공식 랭크·모드별 최근 표본 통계를 확인합니다.</p></article>
 <article class="command" data-category="lol"><code>/롤 전적</code><p>Riot ID로 검색하거나 연결 계정의 최근 전적을 확인합니다</p></article>
 <article class="command" data-category="lol"><code>/롤 소환사랭킹</code><p>서버의 공식 상위 리그를 LP 순서로 확인합니다</p></article>
